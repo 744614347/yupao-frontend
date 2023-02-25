@@ -1,6 +1,6 @@
 <template>
   <van-nav-bar
-      title="标题"
+      :title="title"
       right-text="按钮"
       left-arrow
       @click-left="onClickLeft"
@@ -26,11 +26,25 @@
 </template>
 
 
-<script setup>
-import {Toast} from "vant";
-import {useRouter} from "vue-router";
+<script setup lang="ts">
+import {useRoute, useRouter} from "vue-router";
+import {ref} from "vue";
+import routes from "../config/route";
+
+const DEFAULT_TITLE = '伙伴匹配'
 
 const router = useRouter()
+const route = useRoute();
+const title = ref(DEFAULT_TITLE);
+
+router.beforeEach((to, from) => {
+  const toPath = to.path;
+  const route = routes.find((route) => {
+    return toPath == route.path
+  })
+  title.value = route?.title ?? DEFAULT_TITLE
+})
+
 
 const onClickLeft = () => {
   router.back();
@@ -39,9 +53,6 @@ const onClickRight = () => {
   router.push('/search')
 };
 
-// const active = ref("index");
-const onChange = (index) => Toast(
-    `标签 ${index}`);
 
 </script>
 

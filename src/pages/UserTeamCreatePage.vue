@@ -1,14 +1,7 @@
 <template>
   <div id="teamPage">
     <van-search v-model="searchText" placeholder="搜索队伍" @search="onSearch"/>
-    <van-tabs v-model:active="active" @change="onTabChange">
-      <van-tab title="公开" name="public"></van-tab>
-      <van-tab title="加密" name="private"></van-tab>
-    </van-tabs>
-    <div style="margin-bottom: 16px"></div>
     <team-card-list :teamList="teamList"/>
-    <div style="margin-bottom: 50px"></div>
-    <van-button class="add-button" type="primary" icon="plus" @click="doAddTeam"></van-button>
     <van-empty v-if="teamList?.length < 1" description="数据为空"></van-empty>
   </div>
 
@@ -22,24 +15,11 @@ import {onMounted, ref} from "vue";
 import myAxios from "../plugins/myAxios";
 import {Toast} from "vant";
 
-const active = ref('public')
 const router = useRouter();
 const searchText = ref('');
 
-/**
- * 切换查询状态
- * @param name
- */
-const onTabChange = (name) =>{
-  if (name === 'public') {
-    listTeam(searchText.value, 0);
-  } else {
-    listTeam(searchText.value, 2);
-  }
-}
-
 // 跳转到加入队伍页
-const doAddTeam = () => {
+const doJoinTeam = () => {
   router.push({
     path: "/team/add"
   })
@@ -51,15 +31,13 @@ const teamList = ref([]);
 /**
  * 搜索队伍
  * @param val
- * @param status
  * @returns {Promise<void>}
  */
-const listTeam = async (val = '', status = 0) => {
-  const res = await myAxios.get("/team/list", {
+const listTeam = async (val = '') => {
+  const res = await myAxios.get("/team/list/my/create", {
     params: {
       searchText: val,
       pageNum: 1,
-      status,
     }
   });
   if (res?.code === 0) {

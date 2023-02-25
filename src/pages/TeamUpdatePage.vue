@@ -1,5 +1,5 @@
 <template>
-  <div id="teamAddPage">
+  <div id="teamUpdatePage">
     <van-form @submit="onSubmit">
       <van-cell-group inset>
         <van-field
@@ -36,11 +36,6 @@
           />
         </van-popup>
 
-        <van-field name="stepper" label="最大人数">
-          <template #input>
-            <van-stepper v-model="addTeamData.maxNum" max="10"/>
-          </template>
-        </van-field>
 
         <van-field name="radio" label="队伍状态">
           <template #input>
@@ -75,29 +70,41 @@
 
 <script setup>
 
-import {useRouter} from "vue-router";
-import {ref} from "vue";
+import {useRoute, useRouter} from "vue-router";
+import {onMounted, ref} from "vue";
 import {Toast} from "vant";
 import myAxios from "../plugins/myAxios";
 
 const router = useRouter();
+const route = useRoute();
 
 // 展示日期选择器
 const showPicker = ref(false);
 
-const initFormData = {
-  "name": "",
-  "description": "",
-  "expireTime": null,
-  "maxNum": 3,
-  "password": "",
-  "status": 0,
-}
-
 const minDate = new Date();
 
+const id = route.query.id;
+
 // 需要用户填写的表单数据
-const addTeamData = ref({...initFormData})
+const addTeamData = ref({})
+
+// 获取之前的队伍信息
+onMounted(async () => {
+  if (id <= 0) {
+    Toast.fail('加载队伍失败，请刷新重试');
+    return;
+  }
+  const res = await myAxios.get("/team/get", {
+    params: {
+      id: id,
+    }
+  });
+  if (res?.code === 0) {
+    addTeamData.value = res.data;
+  } else {
+    Toast.fail('加载队伍失败，请刷新重试')
+  }
+})
 
 
 const onSubmit = async () => {
@@ -106,15 +113,15 @@ const onSubmit = async () => {
     status: Number(addTeamData.value.status)
   }
   // todo 前端参数校验
-  const res = await myAxios.post("/team/add", postData);
+  const res = await myAxios.post("/team/update", postData);
   if (res?.code === 0 && res.data) {
-    Toast.success('添加成功');
+    Toast.success('更新成功');
     router.push({
       path: '/team',
       replace: true
     });
   } else {
-    Toast.fail('添加失败');
+    Toast.fail('更新失败');
   }
 }
 </script>
