@@ -11,7 +11,7 @@
       </van-tag>
     </template>
     <template #footer>
-      <van-button size="mini">联系我</van-button>
+      <van-button size="mini" @click="contextMe(user)">联系我</van-button>
     </template>
   </van-card>
   </van-skeleton>
@@ -20,6 +20,7 @@
 
 <script setup lang="ts">
 import {UserType} from "../model/user";
+import {Dialog} from "vant";
 
 interface UserCardListProps {
   loading: boolean;
@@ -31,6 +32,16 @@ const props =  withDefaults(defineProps<UserCardListProps>(),{
   // @ts-ignore
   userList: [] as UserType[],
 })
+
+const contextMe = (user:UserType)=>{
+  Dialog.alert({
+    title: '联系我',
+    message: `邮箱：${user.email}
+    电话：${user.phone}`,
+  }).then(() => {
+    // on close
+  });
+}
 
 </script>
 

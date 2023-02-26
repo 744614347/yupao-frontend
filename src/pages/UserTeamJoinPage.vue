@@ -18,12 +18,6 @@ import {Toast} from "vant";
 const router = useRouter();
 const searchText = ref('');
 
-// 跳转到加入队伍页
-const doJoinTeam = () => {
-  router.push({
-    path: "/team/add"
-  })
-}
 
 const teamList = ref([]);
 
@@ -42,6 +36,7 @@ const listTeam = async (val = '') => {
   });
   if (res?.code === 0) {
     teamList.value = res.data;
+    console.log(res.data)
   } else {
     Toast.fail('加载队伍失败，请刷新重试')
   }

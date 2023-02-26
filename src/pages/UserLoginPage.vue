@@ -23,6 +23,10 @@
         提交
       </van-button>
     </div>
+    <div style="text-align: center;text-decoration: underline" >
+      <router-link to="/user/register">还没用户?注册用户</router-link>
+    </div>
+
   </van-form>
 
 

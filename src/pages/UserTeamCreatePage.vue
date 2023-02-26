@@ -18,12 +18,6 @@ import {Toast} from "vant";
 const router = useRouter();
 const searchText = ref('');
 
-// 跳转到加入队伍页
-const doJoinTeam = () => {
-  router.push({
-    path: "/team/add"
-  })
-}
 
 const teamList = ref([]);
 
