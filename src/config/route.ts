@@ -12,13 +12,16 @@ import UserRegisterPage from "../pages/UserRegisterPage.vue";
 import UserLoginPage from "../pages/UserLoginPage.vue";
 import TeamAddPage from "../pages/TeamAddPage.vue";
 import TeamUpdatePage from "../pages/TeamUpdatePage.vue";
-import UserEditAvatarPage from "../pages/UserEditAvatarPage.vue"
+import UserEditAvatarPage from "../pages/UserEditAvatarPage.vue";
+import TeamDetailsPage from "../pages/TeamDetailsPage.vue";
+
 
 const routes = [
     { path: '/', component: Index },
     { path: '/team', title:'找队伍', component: Team },
     { path: '/team/add', title:'创建队伍', component: TeamAddPage },
     { path: '/team/update', title:'更新队伍',component: TeamUpdatePage },
+    { path: '/team/details', title:'队伍详情页',component: TeamDetailsPage},
     { path: '/user', title:'个人信息', component: UserPage },
     { path: '/search', title:'找伙伴', component: SearchPage },
     { path: '/user/list',title:'用户列表', component: SearchResultPage },

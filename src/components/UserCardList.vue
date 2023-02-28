@@ -2,8 +2,8 @@
   <van-skeleton title avatar :row="3" :loading="props.loading"  v-for="user in props.userList">
   <van-card
       :desc="user.profile"
-      :title="`${user.username} (${user.planetCode})`"
-      :thumb="user.avatarUrl"
+      :title="`${user.username??'浪人'}`"
+      :thumb="user.avatarUrl??'../assets/group.png'"
   >
     <template #tags>
       <van-tag plain type="danger" v-for="tag in user.tags" style="margin-right: 8px; margin-top: 8px">
@@ -27,6 +27,8 @@ interface UserCardListProps {
   userList: UserType[];
 }
 
+console.log("################",props.userList)
+
 const props =  withDefaults(defineProps<UserCardListProps>(),{
   loading: true,
   // @ts-ignore
@@ -42,6 +44,7 @@ const contextMe = (user:UserType)=>{
     // on close
   });
 }
+
 
 </script>
 

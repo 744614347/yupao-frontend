@@ -27,6 +27,8 @@
         </div>
       </template>
       <template #footer>
+        <van-button size="small" type="primary" plain @click="showTeamDetails(team)">队伍详情
+        </van-button>
         <van-button size="small" type="primary" v-if="team.userId !== currentUser?.id && !team.hasJoin" plain
                     @click="preJoinTeam(team)">加入队伍
         </van-button>
@@ -97,6 +99,16 @@ const doJoinCancel = () => {
   joinTeamId.value = 0;
   password.value='';
 }
+
+const showTeamDetails = (team:TeamType) =>{
+  router.push({
+    path: '/team/details',
+    query:{
+      joinTeamUsersId:JSON.stringify(team.joinTeamUsersId)
+    }
+  })
+}
+
 
 
 /**
