@@ -10,10 +10,10 @@
     </van-cell>
 
     <van-cell title="性别" is-link :value="user.gender ===0?'男':'女'"
-              @click="toEdit('gender','性别',user.gender ===0?'男':'女')"/>
+              @click="toEditGender('gender','性别',user.gender ===0?'男':'女')"/>
     <van-cell title="电话" is-link to="/user/edit/" :value="user.phone" @click="toEdit('phone','电话',user.phone)"/>
     <van-cell title="邮箱" is-link to="/user/edit/" :value="user.email " @click="toEdit('email','邮箱',user.email)"/>
-    <van-cell title="标签" is-link to="/user/edit/" :value="user.tags " @click="toEdit('tags','标签',user.tags)"/>
+    <van-cell title="我的标签" is-link to="/user/editTags/"   @click="toEditTags('tags','标签',user.tags)"/>
     <van-cell title="注册时间" :value="dayjs(user.createTime).format('YYYY-MM-DD HH:mm:ss')"/>
   </template>
 
@@ -53,6 +53,28 @@ const toEdit = (editKey: string, editName: string, currentValue: string) => {
 const toEditAvatar = (editKey: string, editName: string, currentValue: string) => {
   router.push({
     path: '/user/editAvatar',
+    query: {
+      editKey,
+      editName,
+      currentValue,
+    }
+  })
+}
+
+const toEditGender = (editKey: string, editName: string, currentValue: string) => {
+  router.push({
+    path: '/user/editGender',
+    query: {
+      editKey,
+      editName,
+      currentValue,
+    }
+  })
+}
+
+const toEditTags = (editKey: string, editName: string, currentValue: string) => {
+  router.push({
+    path: '/user/editTags',
     query: {
       editKey,
       editName,

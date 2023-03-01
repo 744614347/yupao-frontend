@@ -1,12 +1,11 @@
 <template>
   <van-form @submit="onSubmit">
-    <img style="height: 48px" :src="editUser.currentValue">
-    <van-uploader v-model="fileList" multiple :max-count="1"/>
+    <div style="text-align: center">
+      <img style="height: 100px" :src="editUser.currentValue" ><br/>
+      <van-uploader v-model="fileList" multiple :max-count="1" preview-size="100px"/>
 
-
-
-
-    <div style="margin: 16px;">
+    </div>
+    <div style="margin: 16px;" >
       <van-button round block type="primary" native-type="submit">
         提交
       </van-button>

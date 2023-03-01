@@ -56,8 +56,18 @@ const originTagList = [{
     children: [
       {text: '大一', id: '大一'},
       {text: '大二', id: '大二'},
+      {text: '大三', id: '大三'},
+      {text: '大四', id: '大四'},
+    ],
+  },{
+    text: '爱好',
+    children: [
+      {text: '学习', id: '学习'},
+      {text: '乒乓球', id: '乒乓球'},
+      {text: '羽毛球', id: '羽毛球'},
     ],
   },
+
 ]
 
 
